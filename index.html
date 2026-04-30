@@ -494,5 +494,174 @@ Un abrazo y a crecer!<br>
 Growth Systems Now, SL &middot; Calle de Luchana, 28, 2A &middot; 28010 Madrid &middot; CIF: B22671879 &middot; VAT: ESB22671879
 </div>
 
+<!-- ============ EDITOR INLINE GROWTH4U ============ -->
+<style>
+  #g4u-editor-toolbar {
+    position: fixed; bottom: 20px; right: 20px;
+    background: #1a1a2e; color: #fff;
+    border-radius: 14px; padding: 10px 14px;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 13px;
+    display: none;
+    z-index: 99999;
+    align-items: center; gap: 10px;
+  }
+  body.g4u-edit-mode #g4u-editor-toolbar { display: flex; }
+  body.g4u-edit-mode [data-editable] {
+    outline: 1px dashed #6366f1;
+    outline-offset: 3px;
+    border-radius: 3px;
+    transition: background 0.12s;
+  }
+  body.g4u-edit-mode [data-editable]:hover { background: rgba(99,102,241,0.08); }
+  body.g4u-edit-mode [data-editable]:focus {
+    outline: 2px solid #6366f1;
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(99,102,241,0.15);
+  }
+  #g4u-editor-toolbar button {
+    background: #fff; color: #1a1a2e; border: 0;
+    padding: 7px 14px; border-radius: 8px; cursor: pointer;
+    font-weight: 600; font-size: 12px; line-height: 1;
+  }
+  #g4u-editor-toolbar button:hover { background: #e0e7ff; }
+  #g4u-editor-toolbar button.g4u-secondary {
+    background: rgba(255,255,255,0.15); color: #fff;
+  }
+  #g4u-editor-toolbar button.g4u-secondary:hover { background: rgba(255,255,255,0.25); }
+  #g4u-editor-toolbar .g4u-status { font-size: 12px; opacity: 0.85; max-width: 280px; }
+  #g4u-edit-fab {
+    position: fixed; bottom: 20px; right: 20px;
+    background: #1a1a2e; color: #fff;
+    width: 44px; height: 44px; border-radius: 50%;
+    display: none; align-items: center; justify-content: center;
+    cursor: pointer; box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    font-size: 18px; z-index: 99998;
+    border: 0;
+  }
+  body.g4u-show-fab #g4u-edit-fab { display: flex; }
+  body.g4u-edit-mode #g4u-edit-fab { display: none; }
+  @media print {
+    #g4u-editor-toolbar, #g4u-edit-fab { display: none !important; }
+    body.g4u-edit-mode [data-editable] { outline: none !important; }
+  }
+</style>
+
+<button id="g4u-edit-fab" title="Editar (Shift+E)">✏️</button>
+<div id="g4u-editor-toolbar">
+  <span>✏️ Modo edición</span>
+  <button id="g4u-save">💾 Guardar</button>
+  <button id="g4u-exit" class="g4u-secondary">✕ Salir</button>
+  <span class="g4u-status" id="g4u-status"></span>
+</div>
+
+<script>
+(function() {
+  const EDITABLE_SELECTOR = 'h1, h2, h3, h4, h5, h6, p, li, .price-big, .cover-title, .cover-subtitle, .panel-intro, .panel-meta, .addon-desc, .addon-section-title, .tab-time, .collab-item strong, .collab-item span:not(.collab-icon), strong:not(.cover-meta strong), em';
+
+  const enableEdit = () => {
+    document.body.classList.add('g4u-edit-mode');
+    document.querySelectorAll(EDITABLE_SELECTOR).forEach(el => {
+      if (el.closest('#g4u-editor-toolbar') || el.closest('#g4u-edit-fab')) return;
+      if (el.querySelector('svg')) return;
+      el.setAttribute('contenteditable', 'true');
+      el.setAttribute('data-editable', 'true');
+      el.spellcheck = true;
+    });
+  };
+  const disableEdit = () => {
+    document.body.classList.remove('g4u-edit-mode');
+    document.querySelectorAll('[data-editable]').forEach(el => {
+      el.removeAttribute('contenteditable');
+      el.removeAttribute('data-editable');
+    });
+  };
+  const showFab = () => document.body.classList.add('g4u-show-fab');
+
+  // Activación: ?edit=1, Shift+E, o si hay token guardado mostramos FAB
+  const params = new URLSearchParams(location.search);
+  if (params.get('edit') === '1') enableEdit();
+  if (localStorage.getItem('g4u_gh_token')) showFab();
+
+  document.addEventListener('keydown', e => {
+    if (e.shiftKey && (e.key === 'E' || e.key === 'e') && !e.metaKey && !e.ctrlKey && !e.altKey) {
+      const target = e.target;
+      if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)) return;
+      e.preventDefault();
+      if (document.body.classList.contains('g4u-edit-mode')) disableEdit();
+      else { showFab(); enableEdit(); }
+    }
+  });
+
+  document.getElementById('g4u-edit-fab').onclick = () => { showFab(); enableEdit(); };
+  document.getElementById('g4u-exit').onclick = () => { disableEdit(); };
+
+  document.getElementById('g4u-save').onclick = async () => {
+    const status = document.getElementById('g4u-status');
+    let token = localStorage.getItem('g4u_gh_token');
+    if (!token) {
+      token = prompt('Pega tu GitHub Personal Access Token (scope: repo o public_repo).\nSe guarda en este navegador, no se envía a ningún tercero.');
+      if (!token) return;
+      localStorage.setItem('g4u_gh_token', token.trim());
+      token = token.trim();
+      showFab();
+    }
+
+    const match = location.hostname.match(/^(.+)\.github\.io$/);
+    if (!match) { status.textContent = '⚠️ No es GitHub Pages'; return; }
+    const owner = match[1];
+    const pathParts = location.pathname.split('/').filter(Boolean);
+    const repo = pathParts[0] || '';
+    if (!repo) { status.textContent = '⚠️ No detecto el repo'; return; }
+
+    status.textContent = '⏳ Guardando en ' + owner + '/' + repo + '…';
+
+    // Tomar HTML limpio (sin atributos de edición)
+    const wasEditMode = document.body.classList.contains('g4u-edit-mode');
+    disableEdit();
+    const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+    if (wasEditMode) enableEdit();
+
+    try {
+      const apiBase = `https://api.github.com/repos/${owner}/${repo}/contents/index.html`;
+      const getRes = await fetch(apiBase + '?ref=main', {
+        headers: { Authorization: 'token ' + token, Accept: 'application/vnd.github+json' }
+      });
+      if (!getRes.ok) {
+        if (getRes.status === 401) {
+          localStorage.removeItem('g4u_gh_token');
+          throw new Error('Token inválido (401). Re-pegalo y vuelve a intentarlo.');
+        }
+        throw new Error('GET ' + getRes.status);
+      }
+      const fileInfo = await getRes.json();
+
+      const b64 = btoa(unescape(encodeURIComponent(html)));
+      const putRes = await fetch(apiBase, {
+        method: 'PUT',
+        headers: { Authorization: 'token ' + token, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: 'Edición inline desde la propuesta',
+          content: b64,
+          sha: fileInfo.sha,
+          branch: 'main'
+        })
+      });
+      if (!putRes.ok) {
+        const err = await putRes.text();
+        throw new Error('PUT ' + putRes.status + ': ' + err.slice(0,160));
+      }
+      const data = await putRes.json();
+      status.innerHTML = '✅ <code style="background:rgba(255,255,255,0.2); padding:2px 6px; border-radius:3px;">' + data.commit.sha.slice(0,7) + '</code> · Pages rebuild en ~1 min';
+    } catch (e) {
+      status.textContent = '❌ ' + e.message;
+      console.error('[G4U Editor]', e);
+    }
+  };
+})();
+</script>
+<!-- ============ /EDITOR INLINE ============ -->
+
 </body>
 </html>
