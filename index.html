@@ -113,39 +113,37 @@
     font-size: 10pt;
     color: #6b7280;
   }
+  .addon-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 14px 0 18px;
+  }
   .addon-item {
     border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    padding: 16px 20px;
-    margin: 12px 0;
+    border-radius: 6px;
+    padding: 10px 12px;
   }
   .addon-item h4 {
-    font-size: 11pt;
+    font-size: 10pt;
     color: #1a1a2e;
-    margin: 0 0 4px;
+    margin: 0 0 3px;
     font-weight: 600;
   }
   .addon-price {
     float: right;
     font-weight: 700;
     color: #1a1a2e;
-    font-size: 11pt;
+    font-size: 10pt;
   }
   .addon-desc {
-    font-size: 9.5pt;
-    color: #6b7280;
-    margin: 4px 0;
-    line-height: 1.5;
-  }
-  .addon-entregable {
     font-size: 9pt;
-    color: #065f46;
-    background: #ecfdf5;
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 4px;
-    margin-top: 6px;
+    color: #6b7280;
+    margin: 0;
+    line-height: 1.4;
   }
+  .addon-section-title { font-size: 11pt; margin: 14px 0 4px; color: #1a1a2e; }
+  @media (max-width: 600px) { .addon-grid { grid-template-columns: 1fr; } }
   .collab-grid {
     margin: 16px 0;
     display: grid;
@@ -400,65 +398,24 @@
 <h2>Add-ons de ejecuci&oacute;n (opcionales)</h2>
 <p>Si hay m&oacute;dulos que prefer&iacute;s que ejecutemos nosotros, pod&eacute;is contratarlos a medida que los necesit&eacute;is. En cada caso, definimos juntos el alcance y os pasamos una cotizaci&oacute;n. Cada add-on incluye el setup completo y la entrega lista para operar. Luego vuestro equipo toma la gesti&oacute;n continua con nuestro acompa&ntilde;amiento.</p>
 
-<h3>Setup e infraestructura</h3>
+<p style="margin-bottom:8px;">M&oacute;dulos que pod&eacute;is contratar si prefer&iacute;s que los ejecutemos nosotros. Cotizaci&oacute;n a demanda seg&uacute;n alcance. <strong>Rango t&iacute;pico: 1.500&ndash;2.900 EUR/mes</strong> por add-on activo.</p>
 
-<div class="addon-item">
-  <h4>SEO + GEO (Posicionamiento en buscadores y motores de IA)</h4>
-  <p class="addon-desc">Redacci&oacute;n de art&iacute;culos optimizados por cada ECP/nicho (keywords long-tail del sector eventos cripto y formaci&oacute;n B2B). Optimizaci&oacute;n de la presencia de Merge en ChatGPT, Gemini y Perplexity. Monitoreo de respuestas de IA para queries del sector.</p>
-  <span class="addon-entregable">Entregable: 4-6 art&iacute;culos publicados con Schema Markup + informe de presencia en LLMs + plan de acci&oacute;n + monitoreo.</span>
+<h4 class="addon-section-title">Setup e infraestructura</h4>
+<div class="addon-grid">
+  <div class="addon-item"><h4>SEO + GEO</h4><p class="addon-desc">Art&iacute;culos optimizados por p&uacute;blico (sponsors, alumnos), presencia en ChatGPT/Gemini/Perplexity, monitoreo de respuestas IA.</p></div>
+  <div class="addon-item"><h4>PR y medios</h4><p class="addon-desc">Outreach y publicaciones en medios cripto sectoriales y mainstream para Conference y vertical formativa.</p></div>
+  <div class="addon-item"><h4>Reviews</h4><p class="addon-desc">Fichas en plataformas clave + flujo NPS &rarr; review automatizado para sponsors y alumnos.</p></div>
+  <div class="addon-item"><h4>Landings + atribuci&oacute;n</h4><p class="addon-desc">Landings por p&uacute;blico + tracking por canal y contenido con panel en tiempo real.</p></div>
+  <div class="addon-item"><h4>CRM + automatizaciones</h4><p class="addon-desc">Configuraci&oacute;n de Zoho, flujos de email, secuencias de nurturing y seguimiento autom&aacute;tico.</p></div>
+  <div class="addon-item"><h4>Outbound Email</h4><p class="addon-desc">Dominios, calentamiento, secuencias iniciales y campa&ntilde;as B2B sponsors lanzadas.</p></div>
+  <div class="addon-item"><h4>Meta Ads</h4><p class="addon-desc">Pixel, audiencias, creatividades y estructura de campa&ntilde;as optimizada para el sector cripto.</p></div>
 </div>
 
-<div class="addon-item">
-  <h4>PR y art&iacute;culos en medios</h4>
-  <p class="addon-desc">Outreach a medios de nicho y blogs especializados en eventos cripto y formaci&oacute;n B2B. Redacci&oacute;n de art&iacute;culos o colaboraciones para publicar en medios de terceros.</p>
-  <span class="addon-entregable">Entregable: Art&iacute;culos publicados en medios del sector con backlinks.</span>
+<h4 class="addon-section-title">Gesti&oacute;n continua</h4>
+<div class="addon-grid">
+  <div class="addon-item"><h4>Gesti&oacute;n de partners</h4><p class="addon-desc">Contacto, negociaci&oacute;n y gesti&oacute;n continua de creadores e influencers del sector cripto. Reporting mensual.</p></div>
+  <div class="addon-item"><h4>Contenido social</h4><p class="addon-desc">Calendario editorial multicanal con repurposing local, alineado con la estrategia por p&uacute;blico.</p></div>
 </div>
-
-<div class="addon-item">
-  <h4>Sistema de reviews</h4>
-  <p class="addon-desc">Setup de fichas en plataformas clave (Trustpilot, Google, App Store). Implementaci&oacute;n del flujo automatizado NPS &rarr; review.</p>
-  <span class="addon-entregable">Entregable: Fichas activas + flujo automatizado funcionando.</span>
-</div>
-
-<div class="addon-item">
-  <h4>Landing pages + Sistema de atribuci&oacute;n</h4>
-  <p class="addon-desc">Dise&ntilde;o y desarrollo de landing pages espec&iacute;ficas por cada ECP, con copy validado en Fase 1. Setup del sistema de tracking por partner, canal y contenido con panel de m&eacute;tricas en tiempo real.</p>
-  <span class="addon-entregable">Entregable: Landing pages operativas por nicho + dashboard de atribuci&oacute;n con m&eacute;tricas por canal.</span>
-</div>
-
-<div class="addon-item">
-  <h4>CRM + automatizaciones</h4>
-  <p class="addon-desc">Configuraci&oacute;n del CRM, flujos de email, secuencias de nurturing y seguimiento automatizado.</p>
-  <span class="addon-entregable">Entregable: CRM configurado con flujos activos.</span>
-</div>
-
-<div class="addon-item">
-  <h4>Outbound Email</h4>
-  <p class="addon-desc">Setup completo de infraestructura de env&iacute;o: dominios, calentamiento, herramientas. Dise&ntilde;o y redacci&oacute;n de las secuencias iniciales de campa&ntilde;as.</p>
-  <span class="addon-entregable">Entregable: Infraestructura de env&iacute;o operativa + secuencias iniciales configuradas y lanzadas.</span>
-</div>
-
-<div class="addon-item">
-  <h4>Meta Ads</h4>
-  <p class="addon-desc">Setup de campa&ntilde;as: Pixel, audiencias, creatividades iniciales. Estructura de campa&ntilde;as optimizada para el sector eventos cripto y formaci&oacute;n B2B.</p>
-  <span class="addon-entregable">Entregable: Campa&ntilde;as configuradas y lanzadas con estructura de testing.</span>
-</div>
-
-<h3>Gesti&oacute;n continua</h3>
-
-<div class="addon-item">
-  <h4>Gesti&oacute;n de partners</h4>
-  <p class="addon-desc">Contacto, negociaci&oacute;n y gesti&oacute;n continua de creadores e influencers del sector eventos cripto y formaci&oacute;n B2B. Seguimiento de performance y optimizaci&oacute;n por partner.</p>
-  <span class="addon-entregable">Entregable: Red de partners activa con acuerdos cerrados, briefs, reporting mensual.</span>
-</div>
-
-<div class="addon-item">
-  <h4>Contenido social</h4>
-  <p class="addon-desc">Calendario editorial, creaci&oacute;n y publicaci&oacute;n de contenido en redes (LinkedIn, etc.) alineado con la estrategia por ECP.</p>
-  <span class="addon-entregable">Entregable: Calendario + publicaciones mensuales.</span>
-</div>
-
-<p style="background: #fef0f2; border-left: 3px solid #e94560; padding: 12px 16px; border-radius: 6px; font-size: 10pt; color: #6b7280; margin-top: 20px;"><strong style="color:#1a1a2e;">Rango de precios:</strong> El coste mensual de cada add-on var&iacute;a entre <strong>1.500 y 2.900 EUR/mes</strong>, y se cotiza a demanda seg&uacute;n el alcance espec&iacute;fico acordado.</p>
 
 <hr>
 
