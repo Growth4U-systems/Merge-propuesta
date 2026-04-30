@@ -145,31 +145,53 @@
   .addon-section-title { font-size: 11pt; margin: 14px 0 4px; color: #1a1a2e; }
   @media (max-width: 600px) { .addon-grid { grid-template-columns: 1fr; } }
   .collab-grid {
-    margin: 16px 0;
+    margin: 18px 0 8px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px;
   }
   .collab-item {
-    background: #f9fafb;
-    border-radius: 8px;
-    padding: 16px 18px;
-    margin: 0;
+    position: relative;
+    background: #fff;
     border: 1px solid #e5e7eb;
+    border-left: 3px solid #1a1a2e;
+    border-radius: 8px;
+    padding: 14px 16px 14px 52px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
+  .collab-item:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+  .collab-item .collab-icon {
+    position: absolute;
+    left: 14px; top: 14px;
+    width: 26px; height: 26px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    background: #1a1a2e;
+    color: #fff;
+  }
+  .collab-item .collab-icon svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .collab-item:nth-child(1) { border-left-color: #6366f1; }
+  .collab-item:nth-child(1) .collab-icon { background: #6366f1; }
+  .collab-item:nth-child(2) { border-left-color: #06b6d4; }
+  .collab-item:nth-child(2) .collab-icon { background: #06b6d4; }
+  .collab-item:nth-child(3) { border-left-color: #10b981; }
+  .collab-item:nth-child(3) .collab-icon { background: #10b981; }
+  .collab-item:nth-child(4) { border-left-color: #f59e0b; }
+  .collab-item:nth-child(4) .collab-icon { background: #f59e0b; }
   .collab-item strong {
     display: block;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
     color: #1a1a2e;
-    font-size: 11pt;
+    font-size: 10.5pt;
+    line-height: 1.3;
   }
   .collab-item span {
-    font-size: 10pt;
+    display: block;
+    font-size: 9.5pt;
     color: #6b7280;
-    line-height: 1.5;
+    line-height: 1.45;
   }
-  .collab-item strong { color: #1a1a2e; }
-  .collab-item span { color: #6b7280; font-size: 10pt; }
+  @media (max-width: 600px) { .collab-grid { grid-template-columns: 1fr; } }
   .footer-legal {
     margin-top: 40px;
     padding-top: 16px;
@@ -423,10 +445,26 @@
 <p>Un partnership, no un proveedor. Nos integramos como extensi&oacute;n de vuestro equipo.</p>
 
 <div class="collab-grid">
-  <div class="collab-item"><strong>Sesiones semanales</strong><br><span>Revisar avances, resolver dudas y guiar la ejecuci&oacute;n paso a paso.</span></div>
-  <div class="collab-item"><strong>Canal de Slack abierto</strong><br><span>Comunicaci&oacute;n fluida para cualquier duda o consulta entre sesiones.</span></div>
-  <div class="collab-item"><strong>Entrega continua</strong><br><span>Entregables compartidos en cuanto est&aacute;n listos. Sin esperas, sin sorpresas.</span></div>
-  <div class="collab-item"><strong>Ejecuci&oacute;n compartida</strong><br><span>Growth4U lidera estrategia y marketing. Merge lidera producto y expertise del sector.</span></div>
+  <div class="collab-item">
+    <span class="collab-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
+    <strong>Sesiones semanales</strong>
+    <span>Revisar avances, resolver dudas y guiar la ejecuci&oacute;n paso a paso.</span>
+  </div>
+  <div class="collab-item">
+    <span class="collab-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+    <strong>Canal de Slack abierto</strong>
+    <span>Comunicaci&oacute;n fluida para cualquier duda o consulta entre sesiones.</span>
+  </div>
+  <div class="collab-item">
+    <span class="collab-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+    <strong>Entrega continua</strong>
+    <span>Entregables compartidos en cuanto est&aacute;n listos. Sin esperas, sin sorpresas.</span>
+  </div>
+  <div class="collab-item">
+    <span class="collab-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+    <strong>Ejecuci&oacute;n compartida</strong>
+    <span>Growth4U lidera estrategia y marketing. Merge lidera producto y expertise del sector.</span>
+  </div>
 </div>
 
 <hr>
